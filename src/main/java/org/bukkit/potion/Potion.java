@@ -124,10 +124,31 @@ public class Potion {
 
     /**
      * Chain this to the constructor to extend the potion's duration.
+     * This <b>will not fail</b> on an instant potion, instead being a no-act.
+     * Contrast to {@link #setHasExtendedDuration(boolean)}, which fails on Instant potions.
      * @return The potion.
      */
     public Potion extend() {
-        setHasExtendedDuration(true);
+        try {
+            setHasExtendedDuration(true);
+        } catch (AssertionError e) {
+            // Ignore silently
+        }
+        return this;
+    }
+
+    /**
+     * Chain this to the constructor to un-extend the potion's duration.
+     * This <b>will not fail</b> on an instant potion, instead being a no-act.
+     * Contrast to {@link #setHasExtendedDuration(boolean)}, which fails on Instant potions.
+     * @return The potion.
+     */
+    public Potion unextend() {
+        try {
+            setHasExtendedDuration(false);
+        } catch (AssertionError e) {
+            // Ignore silently
+        }
         return this;
     }
 
@@ -239,10 +260,14 @@ public class Potion {
     /**
      * Set whether this potion has extended duration. This will cause the potion
      * to have roughly 8/3 more duration than a regular potion.
+     * <p />
+     * This <b>will fail</b> with an AssertionError if the Potion is an Instant type
+     * (e.g. Instant Health, Instant Damage). For methods that no-act on Instant types,
+     * see {@link extend()} and {@link unextend()}.
      *
      * @param isExtended Whether the potion should have extended duration
      */
-    public void setHasExtendedDuration(boolean isExtended) {
+    public void setHasExtendedDuration(boolean isExtended) throws AssertionError {
         Validate.isTrue(type == null || !type.isInstant(), "Instant potions cannot be extended");
         extended = isExtended;
     }
@@ -282,6 +307,8 @@ public class Potion {
 
     /**
      * Sets the level of this potion.
+     * <p />
+     * This will fail with an AssertionError if the Potion's {@link #type} is null.
      *
      * @param level The new level of this potion
      */
@@ -400,7 +427,7 @@ public class Potion {
 
     /**
      * Sets the current instance of {@link PotionBrewer}. Generally not to be
-     * used from within a plugin.
+     * used from within a plugin - will fail if the brewer is already set.
      *
      * @param other The new PotionBrewer
      */
