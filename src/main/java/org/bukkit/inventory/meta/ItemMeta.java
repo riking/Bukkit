@@ -107,6 +107,14 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable {
      */
     boolean removeEnchant(Enchantment ench);
 
+   /**
+    * Checks if the specified enchantment conflicts with any enchantments in this ItemMeta.
+    *
+    * @param ench Enchantment to test
+    * @return true if the enchantment conflicts, false otherwise
+    */
+    boolean conflictsWith(Enchantment ench);
+
     @SuppressWarnings("javadoc")
     ItemMeta clone();
 }
