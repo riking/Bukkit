@@ -28,11 +28,17 @@ public interface Fish extends Projectile {
     public BiteChance constructBiteChance(double clear, double rainy);
 
     /**
+     * Construct a BiteChance for this FishHook with vanilla behavior.
+     * @return a BiteChance with vanilla behavior
+     */
+    public BiteChance constructDefaultBiteChance();
+
+    /**
      * A class to represent the chance of a fish biting. Chances are evaluated
      * every 1/20th of a second.
      * <p />
-     * A BiteChance belongs to a fishing hook and should not be reused,
-     * although there are checks in place to allow this.
+     * A BiteChance belongs to a fishing hook and should not be reused; use
+     * {@link Fish#constructBiteChance(double, double)} to construct one.
      */
     public abstract class BiteChance {
 
