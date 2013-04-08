@@ -121,19 +121,55 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
          *  <ul>
          *  <li>If the clicked slot has an item, and the hotbar slot has the same item, the clicked slot will be deposited in the hotbar slot up to {@link org.bukkit.Material#getMaxStackSize()}, then in the first available slot, starting from the left side of the hotbar, then starting from the upper-left of the inventory and going across.</li>
          *  <li>If the clicked slot has an item, and the hotbar slot is empty, the clicked slot will be placed in the hotbar slot.</li>
-         *  <li>If the clicked slot has an item, and the hotbar slot has a different item, the clicked slot will be placed in the hotbar slot, and the hotbar slot item will be moved to a different slot
+         *  <li>If the clicked slot has an item, and the hotbar slot has a different item, the clicked slot will be placed in the hotbar slot, and the hotbar slot item will be moved to a different slot in the player's inventory, starting from the left side of the hotbar, then starting from the upper-left of the inventory and going across.</li> TODO confirm
+		 *  <li>If the clicked slot is air, and the hotbar slot has an item, the hotbar slot will be moved to the clicked slot.</li> TODO confirm
+		 *  <li>If both the clicked slot and the hotbar slot are empty, this does nothing.</li>
+		 *  TODO confirm
+		 *  </ul>
+		 * </li>
+		 * </ul>
          */
-        NUMBER_1,djd
+        NUMBER_1,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_2,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_3,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_4,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_5,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_6,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_7,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_8,
+		/**
+		 * @see {@link #NUMBER_1}
+		 */
         NUMBER_9,
         /**
-         * Double left click (Collect all of type)
+         * Double left click.
+		 * <p>
+		 * DEFAULT behavior:
+		 * TODO confirm
+		 * <ul>
+		 * <li>If the cursor is air, this does nothing.</li>
+		 * <li>If there are no other items of the same type as the cursor item in the inventory view, this does nothing.</li>
          */
         DOUBLE_CLICK,
         /**
