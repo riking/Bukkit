@@ -122,84 +122,107 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
          *  <li>If the clicked slot has an item, and the hotbar slot has the same item, the clicked slot will be deposited in the hotbar slot up to {@link org.bukkit.Material#getMaxStackSize()}, then in the first available slot, starting from the left side of the hotbar, then starting from the upper-left of the inventory and going across.</li>
          *  <li>If the clicked slot has an item, and the hotbar slot is empty, the clicked slot will be placed in the hotbar slot.</li>
          *  <li>If the clicked slot has an item, and the hotbar slot has a different item, the clicked slot will be placed in the hotbar slot, and the hotbar slot item will be moved to a different slot in the player's inventory, starting from the left side of the hotbar, then starting from the upper-left of the inventory and going across.</li> TODO confirm
-		 *  <li>If the clicked slot is air, and the hotbar slot has an item, the hotbar slot will be moved to the clicked slot.</li> TODO confirm
-		 *  <li>If both the clicked slot and the hotbar slot are empty, this does nothing.</li>
-		 *  TODO confirm
-		 *  </ul>
-		 * </li>
-		 * </ul>
+         *  <li>If the clicked slot is air, and the hotbar slot has an item, the hotbar slot will be moved to the clicked slot.</li> TODO confirm
+         *  <li>If both the clicked slot and the hotbar slot are empty, this does nothing.</li>
+         *  TODO confirm
+         *  </ul>
+         * </li>
+         * </ul>
          */
         NUMBER_1,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_2,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_3,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_4,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_5,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_6,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_7,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_8,
-		/**
-		 * @see {@link #NUMBER_1}
-		 */
+        /**
+         * @see {@link #NUMBER_1}
+         */
         NUMBER_9,
         /**
          * Double left click.
-		 * <p>
-		 * DEFAULT behavior:
-		 * TODO confirm
-		 * <ul>
-		 * <li>If the cursor is air, this does nothing.</li>
-		 * <li>If there are no other items of the same type as the cursor item in the inventory view, this does nothing.</li>
+         * <p>
+         * DEFAULT behavior:
+         * TODO confirm
+         * TODO behavior when double click holding item over other item
+         * TODO behavior when double click over different slot from first click
+         * TODO check for other behavior
+         * <ul>
+         * <li>If the cursor is air, this does nothing.</li>
+         * <li>If there are no other items of the same type as the cursor item in the inventory view, this does nothing.</li>
+         * <li>If there are other items of the same type as the cursor item in the inventory view, they are collected into the cursor up to {@link org.bukkit.Material#getMaxStackSize()}. TODO order of checking</li>
+         * </ul>
          */
         DOUBLE_CLICK,
         /**
-         * Left click drag start
+         * Left click drag start.
          * @see {@link InventoryPaintEvent}
+         * <p>
+         * You may not cancel this action; it is purely informative.
+         * To cancel the drag, listen to the InventoryPaintEvent.
          */
         DRAG_START_LEFT,
         /**
-         * Right click drag start
+         * Right click drag start.
          * @see {@link InventoryPaintEvent}
+         * <p>
+         * You may not cancel this action; it is purely informative.
+         * To cancel the drag, listen to the InventoryPaintEvent.
          */
         DRAG_START_RIGHT,
         /**
-         * Left click dragging
+         * Left click dragging.
          * @see {@link InventoryPaintEvent}
+         * <p>
+         * You may not cancel this action; it is purely informative.
+         * To cancel the drag, listen to the InventoryPaintEvent.
          */
         DRAG_LEFT,
         /**
-         * Right click dragging
+         * Right click dragging.
          * @see {@link InventoryPaintEvent}
+         * <p>
+         * You may not cancel this action; it is purely informative.
+         * To cancel the drag, listen to the InventoryPaintEvent.
          */
         DRAG_RIGHT,
         /**
-         * Left click drag complete
+         * Left click drag complete.
          * @see {@link InventoryPaintEvent}
+         * <p>
+         * You may not cancel this action; it is purely informative.
+         * To cancel the drag, listen to the InventoryPaintEvent.
          */
         DRAG_FINISH_LEFT,
         /**
          * Right click drag complete
          * @see {@link InventoryPaintEvent}
+         * <p>
+         * You may not cancel this action; it is purely informative.
+         * To cancel the drag, listen to the InventoryPaintEvent.
          */
         DRAG_FINISH_RIGHT,
         ;
