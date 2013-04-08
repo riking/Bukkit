@@ -1,6 +1,6 @@
 package org.bukkit.event.inventory;
 
-import org.bukkit.event.inventory.InventoryClickEvent.MouseButton;
+import org.bukkit.event.inventory.InventoryClickEvent.ClickAction;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.InventoryView;
@@ -11,15 +11,15 @@ public class CraftItemEvent extends InventoryClickEvent {
 
     @Deprecated
     public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, boolean right, boolean shift) {
-        this(recipe, what, type, slot, (right ? (shift ? MouseButton.SHIFT_RIGHT : MouseButton.RIGHT) : (shift ? MouseButton.SHIFT_LEFT : MouseButton.LEFT)));
+        this(recipe, what, type, slot, (right ? (shift ? ClickAction.SHIFT_RIGHT : ClickAction.RIGHT) : (shift ? ClickAction.SHIFT_LEFT : ClickAction.LEFT)));
     }
 
     @Deprecated
-    public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, MouseButton button, boolean shift) {
-        this(recipe, what, type, slot, (shift && button == MouseButton.LEFT ? MouseButton.SHIFT_LEFT : (shift && button == MouseButton.RIGHT ? MouseButton.SHIFT_RIGHT : button)));
+    public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, ClickAction button, boolean shift) {
+        this(recipe, what, type, slot, (shift && button == ClickAction.LEFT ? ClickAction.SHIFT_LEFT : (shift && button == ClickAction.RIGHT ? ClickAction.SHIFT_RIGHT : button)));
     }
 
-    public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, MouseButton button) {
+    public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, ClickAction button) {
         super(what, type, slot, button);
         this.recipe = recipe;
     }
