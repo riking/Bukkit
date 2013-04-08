@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 public class InventoryClickEvent extends InventoryEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private SlotType slot_type;
-    private boolean shiftClick;
     private MouseButton button;
     private Result result;
     private int whichSlot;
@@ -27,25 +26,45 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
          */
         LEFT,
         /**
+         * Shift key plus left mouse button
+         */
+        SHIFT_LEFT,
+        /**
          * Middle mouse button or wheel click
          */
         MIDDLE,
         /**
          * Right mouse button
          */
-        RIGHT;
+        RIGHT,
+        /**
+         * Shift key plus right mouse button
+         */
+        SHIFT_RIGHT,
+        /**
+         * Number key 1-9
+         */
+        NUMBER,
+        /**
+         * Left click dragging
+         */
+        DRAG_LEFT,
+        /**
+         * Right click dragging
+         */
+        DRAG_RIGHT,
+        ;
     }
 
     @Deprecated
     public InventoryClickEvent(InventoryView what, SlotType type, int slot, boolean right, boolean shift) {
-        this(what, type, slot, (right ? MouseButton.RIGHT : MouseButton.LEFT), shift);
+        this(what, type, slot, (right ? (shift ? MouseButton.SHIFT_RIGHT : MouseButton.RIGHT) : (shift ? MouseButton.SHIFT_LEFT : MouseButton.LEFT)));
     }
 
-    public InventoryClickEvent(InventoryView what, SlotType type, int slot, MouseButton button, boolean shift) {
+    public InventoryClickEvent(InventoryView what, SlotType type, int slot, MouseButton button) {
         super(what);
         this.slot_type = type;
         this.button = button;
-        this.shiftClick = shift;
         this.result = Result.DEFAULT;
         this.rawSlot = slot;
         this.whichSlot = what.convertSlot(slot);
@@ -82,7 +101,7 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
      */
     @Deprecated
     public boolean isRightClick() {
-        return button == MouseButton.RIGHT;
+        return button == MouseButton.RIGHT || button == MouseButton.SHIFT_RIGHT || button == MouseButton.DRAG_RIGHT;
     }
 
     /**
@@ -91,7 +110,16 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
      */
     @Deprecated
     public boolean isLeftClick() {
-        return button == MouseButton.LEFT;
+        return button == MouseButton.LEFT || button == MouseButton.SHIFT_LEFT || button == MouseButton.DRAG_LEFT;
+    }
+
+    /**
+     * @deprecated in favor of {@link #getButton()}
+     * @return True if the click is a shift-click.
+     */
+    @Deprecated
+    public boolean isShiftClick() {
+        return button == MouseButton.SHIFT_LEFT || button == MouseButton.SHIFT_RIGHT;
     }
 
     /**
@@ -99,15 +127,6 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
      */
     public MouseButton getButton() {
         return button;
-    }
-
-    /**
-     * Shift can be combined with left or right click as a modifier.<br>
-     * It is never true for middle clicks.
-     * @return True if the click is a shift-click.
-     */
-    public boolean isShiftClick() {
-        return shiftClick;
     }
 
     public void setResult(Result newResult) {

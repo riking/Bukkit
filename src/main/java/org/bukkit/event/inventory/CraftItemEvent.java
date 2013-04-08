@@ -1,5 +1,6 @@
 package org.bukkit.event.inventory;
 
+import org.bukkit.event.inventory.InventoryClickEvent.MouseButton;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.InventoryView;
@@ -10,11 +11,16 @@ public class CraftItemEvent extends InventoryClickEvent {
 
     @Deprecated
     public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, boolean right, boolean shift) {
-        this(recipe, what, type, slot, (right ? MouseButton.RIGHT : MouseButton.LEFT), shift);
+        this(recipe, what, type, slot, (right ? (shift ? MouseButton.SHIFT_RIGHT : MouseButton.RIGHT) : (shift ? MouseButton.SHIFT_LEFT : MouseButton.LEFT)));
     }
 
+    @Deprecated
     public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, MouseButton button, boolean shift) {
-        super(what, type, slot, button, shift);
+        this(recipe, what, type, slot, (shift && button == MouseButton.LEFT ? MouseButton.SHIFT_LEFT : (shift && button == MouseButton.RIGHT ? MouseButton.SHIFT_RIGHT : button)));
+    }
+
+    public CraftItemEvent(Recipe recipe, InventoryView what, SlotType type, int slot, MouseButton button) {
+        super(what, type, slot, button);
         this.recipe = recipe;
     }
 
