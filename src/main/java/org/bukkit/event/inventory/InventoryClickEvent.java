@@ -43,9 +43,8 @@ public class InventoryClickEvent extends InventoryEvent implements Cancellable {
          * <li>If the player's inventory is open:
          *  <ul>
          *  <li>If the clicked item is a wearable piece of armor, it is equipped.</li>
-         *  <li>If the clicked slot is not on the player's hotbar, and there is room on the player's hotbar, it is moved to the rightmost slot on the hotbar.</li>
-         *  <li>If there is no room on the player's hotbar, and the clicked slot is within the player's inventory, this does nothing, excluding the armor behavior mentioned above.</li>
-         *  <li>If there is no room on the player's hotbar, and the clicked slot is in the player's crafting grid, the clicked item is moved to the first available slot in the player's inventory, starting on the hotbar from the right to the left, then starting from the top-left and going across.</li>
+         *  <li>If the clicked slot is not on the player's hotbar, it is moved to the leftmost available slot on the hotbar if one exists.</li>
+         *  <li>If the clicked slot is in the player's crafting grid, the clicked item is moved to the first available slot in the player's inventory, starting on the hotbar from left to right, then starting from the top-left and going across.</li>
          *  <li>If the clicked slot is on the hotbar, the item is moved to the first available slot in the player's inventory, starting on the top-left and going across.</li>
          *  </ul>
          * </li>
