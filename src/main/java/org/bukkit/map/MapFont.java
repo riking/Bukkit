@@ -50,10 +50,28 @@ public class MapFont {
             throw new IllegalArgumentException("text contains invalid characters");
         }
 
-        int result = 0;
-        for (int i = 0; i < text.length(); ++i) {
-            result += chars.get(text.charAt(i)).getWidth();
+        text = MapPalette.stripColor(text);
+
+        if (text.length() == 0) {
+            return 0;
         }
+
+        int result = 0;
+
+        String[] lines = text.split("\n");
+        for (String line : lines) {
+            int length = 0;
+            
+            for (int i = 0; i < line.length(); ++i) {
+                length += chars.get(line.charAt(i)).getWidth();
+            }
+            length += line.length() - 1; // Account for 1-px spaces between characters
+
+            if (length > result) {
+                result = length;
+            }
+        }
+
         return result;
     }
 

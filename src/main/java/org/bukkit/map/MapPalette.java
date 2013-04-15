@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.regex.Pattern;
 
 /**
  * Represents the palette that map items use.
  */
 public final class MapPalette {
+    public static final char COLOR_CHAR = '\u00A7';
+    private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile(String.valueOf(COLOR_CHAR) + "[0-9]+;");
 
     // Internal mechanisms
     private MapPalette() {}
@@ -151,4 +154,17 @@ public final class MapPalette {
         }
     }
 
+    /**
+     * Strips the given text of all MapPalette color codes
+     *
+     * @param input String to strip of color
+     * @return A copy of the input string, without any coloring
+     */
+     public static String stripColor(final String input) {
+         if (input == null) {
+             return null;
+         }
+
+         return STRIP_COLOR_PATTERN.matcher(input).replaceAll("");
+     }
 }
