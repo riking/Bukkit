@@ -47,7 +47,28 @@ public abstract class InventoryView {
          * In an enchanting inventory, the bottom button's experience level
          * value.
          */
-        ENCHANT_BUTTON3(2, InventoryType.ENCHANTING);
+        ENCHANT_BUTTON3(2, InventoryType.ENCHANTING),
+        /**
+         * In a beacon inventory, the displayed pyramid size, which affects
+         * the selection of effects available. Valid values are 0 to 4.
+         */
+        BEACON_PYRAMID_SIZE(0, InventoryType.BEACON),
+        /**
+         * In a beacon inventory, the potion effect ID of the effect selected
+         * on the left side, as specified in
+         * {@link org.bukkit.potion.PotionEffectType#getId()}. The only
+         * recognized values for this are 0 and the IDs of SPEED,
+         * FAST_DIGGING, DAMAGE_RESISTANCE, JUMP, and INCREASE_DAMAGE.
+         */
+        BEACON_EFFECT_LEFT(1, InventoryType.BEACON),
+        /**
+         * In a beacon inventory, the potion effect ID of the effect selected
+         * on the right side, as specified in
+         * {@link org.bukkit.potion.PotionEffectType#getId()}. The only
+         * recognized values for this are 0, the ID of REGENERATION, and the
+         * ID of the left effect.
+         */
+        BEACON_EFFECT_RIGHT(2, InventoryType.BEACON);
         int id;
         InventoryType style;
         private Property(int id, InventoryType appliesTo) {
