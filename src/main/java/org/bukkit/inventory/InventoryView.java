@@ -34,6 +34,10 @@ public abstract class InventoryView {
          */
         TICKS_FOR_CURRENT_FUEL(2, InventoryType.FURNACE),
         /**
+         * In an anvil inventory, the repair cost experience level value.
+         */
+        REPAIR_COST(0, InventoryType.ANVIL),
+        /**
          * In an enchanting inventory, the top button's experience level value.
          */
         ENCHANT_BUTTON1(0, InventoryType.ENCHANTING),
