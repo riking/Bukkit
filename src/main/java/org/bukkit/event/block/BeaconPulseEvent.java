@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.block.Beacon;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Cancellable;
@@ -61,6 +62,7 @@ public class BeaconPulseEvent extends BlockEvent implements Cancellable {
      * @param newPlayers new list of affected players.
      */
     public void setPlayers(Collection<HumanEntity> newPlayers) {
+        Validate.noNullElements(newPlayers, "Cannot set null Players");
         // note that contract states that getPlayers() is mutable, so recreate the collection
         players = new ArrayList<HumanEntity>(newPlayers);
     }
@@ -96,6 +98,7 @@ public class BeaconPulseEvent extends BlockEvent implements Cancellable {
      * @param modifiedEffects new effects for this pulse only
      */
     public void changePulseEffects(Collection<PotionEffect> modifiedEffects) {
+        Validate.noNullElements(modifiedEffects, "Cannot set null PotionEffects");
         if (modifiedEffects instanceof List) {
             this.effects = (List<PotionEffect>) modifiedEffects;
         } else {
